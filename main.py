@@ -73,6 +73,7 @@ def display_message(client,thread_id):
     for message in reversed(messages.data):
         print(message.role +":"+message.content[0].text.value)
 
+
 # Main program flow
 if __name__ == '__main__':
     api_key = get_api_key()
