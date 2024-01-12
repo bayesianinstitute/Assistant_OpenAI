@@ -26,13 +26,20 @@ def ingest_data(client, file_location):
 
 def create_assistant(client, file_id):
     # Create Assistant
+    # assistant = client.beta.assistants.create(
+    #     instructions="You are a knowledge assistant. Use your knowledge base to best respond to user queries.",
+    #     model="gpt-4-1106-preview",
+    #     tools=[{"type": "code"}],
+    #     file_ids=[file_id]
+    # )
+
     assistant = client.beta.assistants.create(
-        instructions="You are a knowledge assistant. Use your knowledge base to best respond to user queries.",
-        model="gpt-4-1106-preview",
-        tools=[{"type": "retrieval"}],
-        file_ids=[file_id]
+    instructions="You are a personal AI bot specializing in cryptocurrency. When presented with a user's query, utilize the provided dataset to assist in formulating a response to the question. Additionally, incorporate visualizations to enhance the presentation of information.",
+    model="gpt-4-1106-preview",
+    tools=[{"type": "code_interpreter"}],
+    file_ids=[file_id]
     )
-    
+        
     return assistant.id
 
 def initiate_thread(client, prompt):
@@ -73,7 +80,6 @@ def display_message(client,thread_id):
     for message in reversed(messages.data):
         print(message.role +":"+message.content[0].text.value)
 
-
 # Main program flow
 if __name__ == '__main__':
     api_key = get_api_key()
@@ -82,7 +88,7 @@ if __name__ == '__main__':
     base_dir = os.getcwd()
 
     # File LOCATION
-    additional_location = "file/DemoDFL.pptx"
+    additional_location = "data/BTC-USD.csv"
 
     # Combine paths using os.path.join()
     loc = os.path.join(base_dir, additional_location)
@@ -112,6 +118,6 @@ if __name__ == '__main__':
         else:
             import time
             print("Assistance run still in progress. Waiting...")
-            time.sleep(5)  # Add a delay before checking the status again
+            time.sleep(5)  
 
     
