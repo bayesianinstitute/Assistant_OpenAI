@@ -85,13 +85,11 @@ if __name__ == '__main__':
     api_key = get_api_key()
     openai_client = initialize_openai_client(api_key)
         # Base directory
-    base_dir = os.getcwd()
 
     # File LOCATION
-    additional_location = "data/BTC-USD.csv"
+    loc = "../data/DemoDFL.pptx"
 
-    # Combine paths using os.path.join()
-    loc = os.path.join(base_dir, additional_location)
+
 
     file_id = ingest_data(openai_client,loc)
     print(file_id)
