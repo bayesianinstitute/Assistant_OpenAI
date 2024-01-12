@@ -95,7 +95,7 @@ def assistant_handler(client, assistant_id):
     with st.sidebar:
         assistant_name = st.text_input("Name", value = assistant.name)
         assistant_instructions = st.text_area("Instructions", value=assistant.instructions)
-        model_option = st.sidebar.radio("Model", ('gpt-4', 'gpt-3.5-turbo', 'gpt-3.5-turbo-1106', 'gpt-4-1106-preview'))
+        model_option = st.sidebar.radio("Model", ('gpt-4-1106-preview','gpt-4', 'gpt-3.5-turbo', 'gpt-3.5-turbo-1106'))
         st.subheader("Files")
         grid = st.columns(2)
         print(assistant.file_ids)
@@ -104,7 +104,7 @@ def assistant_handler(client, assistant_id):
                 st.text(file_id)
             with grid[1]:
                 st.button("Delete", on_click = delete_file(file_id), key = file_id)
-        uploaded_file = st.file_uploader("Upload a file", type=["txt", "csv"])
+        uploaded_file = st.file_uploader("Upload a file", type=["txt", "csv","pdf"])
     
         if st.button("Update Assistant"):
             assistant = client.beta.assistants.update(
@@ -125,7 +125,7 @@ def create_assistant(client):
     assistants_dict = {"Create Assistant": "create-assistant"}
     assistant_name = st.text_input("Name")
     assistant_instructions = st.text_area("Instructions")
-    model_option = st.radio("Model", ('gpt-4', 'gpt-3.5-turbo', 'gpt-3.5-turbo-1106', 'gpt-4-1106-preview'))
+    model_option = st.radio("Model", ('gpt-4-1106-preview','gpt-4', 'gpt-3.5-turbo', 'gpt-3.5-turbo-1106'))
     def create_new_assistant():
         new_assistant = client.beta.assistants.create(
             name=assistant_name,
@@ -245,8 +245,8 @@ def chat_display(client):
     #             st.markdown(message[1])
 
 def main():
-    st.title('AI Data Assistant 📈')
-    st.caption('Data analysis assistant using OpenAI Assistants API')
+    st.title('AI  Assistant 📈')
+    st.caption('Bayes Assistants API')
     st.divider()
     api_key = set_apikey()
     if api_key:
